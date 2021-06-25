@@ -2,7 +2,7 @@ var express = require('express')
 const MongoClient = require('mongodb').MongoClient;
 require('dotenv').config()
 
-const ObjectId=require('mongodb').ObjectId
+const ObjectId = require('mongodb').ObjectId
 
 var app = express()
 const cors = require('cors')
@@ -27,114 +27,114 @@ client.connect(err => {
   const collectionRegistration = client.db("bdshop2").collection("bdshop02");
 
   const collectionReview = client.db("review").collection("reviewbd");
-  
+
 
   app.get('/', function (req, res) {
     res.send('hello world')
   })
 
 
-  app.get('/event',(req,res)=>{
+  app.get('/event', (req, res) => {
 
-    
+
 
     collection.find({})
-    .toArray((err,doc)=>{
+      .toArray((err, doc) => {
 
         res.send(doc)
-       
-       
 
 
-    })
+
+
+      })
   })
 
 
 
 
-  app.get('/event/:id',(req,res)=>{
+  app.get('/event/:id', (req, res) => {
 
     const id = req.params.id
 
-    collection.find({_id:ObjectId(id)})
-    .toArray((err,doc)=>{
+    collection.find({ _id: ObjectId(id) })
+      .toArray((err, doc) => {
 
         res.send(doc[0])
 
 
-    })
+      })
   })
 
 
-  
 
 
-  app.post('/addRegistration',(req,res)=>{
+
+  app.post('/addRegistration', (req, res) => {
 
     const registration = req.body
 
-    
-   
-    collectionRegistration.insertOne(registration,(err,result)=>{
 
 
-      res.send({count:result})
+    collectionRegistration.insertOne(registration, (err, result) => {
+
+
+      res.send({ count: result })
 
 
 
-      })
+    })
 
   })
 
 
-  app.post('/addlastEvent',(req,res)=>{
+  app.post('/addlastEvent', (req, res) => {
 
     const addnewevent = req.body
 
-   
-    collection.insertOne(addnewevent,(err,result)=>{
+
+    collection.insertOne(addnewevent, (err, result) => {
 
 
-      res.send({count:result})
-     
+      res.send({ count: result })
 
 
 
-      })
+
+    })
 
   })
 
 
 
 
-  app.post('/review',(req,res)=>{
+  app.post('/review', (req, res) => {
 
     const reviews = req.body
-    
 
-    
-    collectionReview.insertOne(reviews,(err,result)=>{
+
+
+    collectionReview.insertOne(reviews, (err, result) => {
 
 
       res.send(result)
 
 
 
-      })
+    })
 
   })
 
-  app.get('/reviewnow',(req,res)=>{
+  app.get('/reviewnow', (req, res) => {
 
-    
+
 
     collectionReview.find({})
-    .toArray((err,doc)=>{
+      .toArray((err, doc) => {
 
         res.send(doc)
 
 
-    })
+      })
   })
 
 
@@ -146,49 +146,49 @@ client.connect(err => {
 
 
 
-  app.get('/registrationAll',(req,res)=>{
+  app.get('/registrationAll', (req, res) => {
 
-    
+
 
     collectionRegistration.find({})
-    .toArray((err,doc)=>{
+      .toArray((err, doc) => {
 
         res.send(doc)
 
 
-    })
+      })
   })
 
 
 
-  app.get('/registrationAll/:email',(req,res)=>{
+  app.get('/registrationAll/:email', (req, res) => {
 
     const email = req.params.userEmail
 
-    
 
-    collectionRegistration.find({email:email})
-    .toArray((err,doc)=>{
+
+    collectionRegistration.find({ email: email })
+      .toArray((err, doc) => {
 
         res.send(doc)
 
 
-    })
+      })
   })
 
 
 
-  app.delete('/delete/:id',(req,res)=>{
+  app.delete('/delete/:id', (req, res) => {
 
-    const id =req.params.id
+    const id = req.params.id
 
-    collectionRegistration.deleteOne({_id:ObjectId(id)},(result)=>{
+    collectionRegistration.deleteOne({ _id: ObjectId(id) }, (result) => {
 
-      if(!err){
-        res.send({count:1})
+      if (!err) {
+        res.send({ count: 1 })
 
       }
-      
+
 
     })
 
@@ -198,7 +198,10 @@ client.connect(err => {
   })
 
 
- console.log(process.env.DB_NAME)
+  console.log(process.env.DB_NAME)
+  console.log(process.env.DB_PASS)
+
+  
 
 
 });
